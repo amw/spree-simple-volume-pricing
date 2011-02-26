@@ -78,6 +78,42 @@ The original extension had also some issues, such as defining overlapping
 ranges. The models were unnecessarily complicated. Why `acts_as_list` if you can
 just order volume prices by their lower quantity range end?
 
+Volume Customers
+================
+
+By default volume prices are calculated based only on the quantity of the
+current order. But your business might want to allow customers to buy huge
+volumes over a number of smaller orders. If you want to include quantities from
+customer's past orders in volume price calculation you can overwrite
+`Order::variant_starting_quantity(variant)` method. By default it returns 0.
+
+## Example
+
+If you want to calculate customer's volume discount based on his order history
+from last 31 days just add this to your site's code:
+
+    Order.class_eval do
+      def variant_starting_quantity variant
+        orders = Order.complete.by_customer(self.email).between(self.created_at - 31.days, self.created_at + 1.day)
+        orders.map do |o|
+          o.line_items.select {|li| li.variant_id == variant.id}.map(&:quantity).sum
+        end.sum
+      end
+    end
+
+Assuming the same volume prices configuration as above. First order:
+
+      Product                Quantity       Price       Total
+      ----------------------------------------------------------------
+      Rails T-Shirt          8              18.00       144.00
+
+Next order during the next 31 days:
+
+      Product                Quantity       Price       Total
+      ----------------------------------------------------------------
+      Rails T-Shirt          4              15.00       60.00
+
+
 Additional Notes
 ================
 
