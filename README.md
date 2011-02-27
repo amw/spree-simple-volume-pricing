@@ -63,9 +63,9 @@ Cart Contents:
 Why is it simple
 ================
 
-This extension is called Simple to differentiate it from another volume pricing
-extension created and maintained by the Spree Core team at RailsDog:
-https://github.com/railsdog/spree-volume-pricing
+This extension is called Simple to differentiate it from [another volume pricing
+extension](https://github.com/railsdog/spree-volume-pricing) created and
+maintained by the Spree Core team at RailsDog.
 
 Simple Volume Pricing is simple to use, but gives you the same level of control.
 It doesn't require you to define ranges, assign them a human readable
@@ -121,3 +121,11 @@ Additional Notes
   a particular variant. It does not (yet) apply different prices for the portion
   of the quantity that falls within a particular range. Although I plan to
   support such option.
+
+Authors
+=======
+
+This extension is based on
+[spree-volume-pricing](https://github.com/railsdog/spree-volume-pricing)
+extension. It was rewritten by Adam Wróbel of Flux Inc, but there are some bits
+by the original authors in the initial commit.
