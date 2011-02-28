@@ -1,0 +1,22 @@
+<p class="prices">
+  <%= t("price") -%>
+  <br />
+  <span class="price selling"><%= product_price(@product) %></span><br />
+</p>
+<% if !@product.master.volume_prices.empty? %>
+  <% if @product.has_variants? %>
+    <p class="volume_prices">
+      Volume prices available.
+    </p>
+  <% else %>
+    <p class="volume_prices">
+      Volume prices available:<br />
+      <span style="font-size: 0.8em;">
+        <% @product.master.volume_prices.each do |vp| -%>
+          <span class="price selling"><%= product_price(vp) %></span>
+          when buying <%= vp.starting_quantity %> or more<br />
+        <% end %>
+      </span>
+    </p>
+  <% end %>
+<% end %>
