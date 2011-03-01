@@ -8,6 +8,7 @@ Product.class_eval do
 
   private
   def duplicate_extra original
+    return unless original
     self.master.volume_prices = original.master.volume_prices.map do |vp|
       VolumePrice.new vp.attributes.slice('starting_quantity', 'price')
     end
