@@ -1,13 +1,15 @@
-<tr class="fields">
-  <td valign="top">
-    <%= f.text_field :starting_quantity, :size => 10 %>
-    <%= error_message_on(f.object, :starting_quantity) %>
-  </td>
-  <td valign="top">
-    <%= f.text_field :price, :size => 10 %>
-    <%= error_message_on(f.object, :price) %>
-  </td>
-  <td valign="top">
-    <%= link_to_remove_fields t("remove"), f %>
-  </td>
-</tr>
+<% unless f.object.marked_for_destruction? %>
+  <tr class="fields">
+    <td valign="top">
+      <%= f.text_field :starting_quantity, :size => 10 %>
+      <%= error_message_on(f.object, :starting_quantity) %>
+    </td>
+    <td valign="top">
+      <%= f.text_field :price, :size => 10 %>
+      <%= error_message_on(f.object, :price) %>
+    </td>
+    <td valign="top">
+      <%= link_to_remove_fields t("remove"), f %>
+    </td>
+  </tr>
+<% end %>
