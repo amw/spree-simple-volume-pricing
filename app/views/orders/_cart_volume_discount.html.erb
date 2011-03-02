@@ -1,0 +1,18 @@
+<% if @order.volume_discount != 0.0 %>
+  <style>
+    #cart-volume-discount {
+      float: right;
+      width: 30%;
+      text-align: left;
+    }
+    div#subtotal {
+      clear: both;
+      width: 30%;
+    }
+  </style>
+  <div id="cart-volume-discount">
+    <h3>
+      <%= t 'volume_discount' %>: <%= format_price @order.volume_discount %>
+    </h3>
+  </div>
+<% end %>

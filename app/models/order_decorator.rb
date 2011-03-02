@@ -1,11 +1,7 @@
 Order.class_eval do
-  def add_variant_with_volume_prices variant, quantity = 1
-    current_item = add_variant_without_volume_prices variant, quantity
-    current_item.price = variant.volume_price current_item.quantity, self
-    raise ActiveRecord::RollBack unless current_item.save
-    update!
+  def volume_discount
+    line_items.map(&:volume_discount).sum
   end
-  alias_method_chain :add_variant, :volume_prices
 
   # By default volume price is calculated based only on quantity of the current
   # order. If you want to have "Volume Customers" - people who purchase at
@@ -19,14 +15,12 @@ Order.class_eval do
   end
 
   # This is required for Volume Customers
-  # It updates line items prices when user logs in
-  def recalculate_prices_on_user_association
-    if user_id_changed? || email_changed?
-      line_items.each do |li|
-        li.price = li.variant.volume_price li.quantity, self
-        li.save
-      end
-    end
+  # It updates item_total when user logs in
+  def update_totals_on_user_association
+    return unless user_id_changed? || email_changed?
+
+    line_items.each {|li| li.update_volume_discount self}
+    update_totals
   end
-  before_save :recalculate_prices_on_user_association
+  before_save :update_totals_on_user_association
 end

@@ -33,7 +33,12 @@ Cart Contents:
 
        Product                Quantity       Price       Total
        ----------------------------------------------------------------
-       Rails T-Shirt          1              20.99       19.99
+       Rails T-Shirt          1              19.99       19.99
+
+Order details:
+
+       Volume Discount:     0.00
+       Subtotal:           19.99
 
 ## Example 2
 
@@ -41,7 +46,12 @@ Cart Contents:
 
        Product                Quantity       Price       Total
        ----------------------------------------------------------------
-       Rails T-Shirt          5              18.00       90.00
+       Rails T-Shirt          5              19.99       99.95
+
+Order details:
+
+       Volume Discount:    -9.95 # 5 * (19.99 - 18)
+       Subtotal:           90.00
 
 ## Example 3
 
@@ -49,7 +59,12 @@ Cart Contents:
 
       Product                Quantity       Price       Total
       ----------------------------------------------------------------
-      Rails T-Shirt          6              18.00       108.00
+      Rails T-Shirt          6              19.99       119.94
+
+Order details:
+
+       Volume Discount:   -11.94 # 6 * (19.99 - 18)
+       Subtotal:          108.00
 
 ## Example 4
 
@@ -57,7 +72,13 @@ Cart Contents:
 
       Product                Quantity       Price       Total
       ----------------------------------------------------------------
-      Rails T-Shirt          20             15.00       300.00
+      Rails T-Shirt          20             19.99       399.80
+
+Order details:
+
+       Volume Discount:   -99.80 # 20 * (19.99 - 15)
+       Subtotal:          300.00
+
 
 
 Why is it simple
@@ -77,6 +98,7 @@ end that range just add another point with the variant's original price.
 The original extension had also some issues, such as defining overlapping
 ranges. The models were unnecessarily complicated. Why `acts_as_list` if you can
 just order volume prices by their lower quantity range end?
+
 
 Volume Customers
 ================
@@ -105,22 +127,33 @@ Assuming the same volume prices configuration as above. First order:
 
       Product                Quantity       Price       Total
       ----------------------------------------------------------------
-      Rails T-Shirt          8              18.00       144.00
+      Rails T-Shirt          8              19.99       159.92
+
+Order details:
+
+       Volume Discount:    -15.92 # 8 * (19.99 - 18)
+       Subtotal:           144.00
+
 
 Next order during the next 31 days:
 
       Product                Quantity       Price       Total
       ----------------------------------------------------------------
-      Rails T-Shirt          4              15.00       60.00
+      Rails T-Shirt          4              19.99       79.96
+
+Order details:
+
+       Volume Discount:     -7.96 # 4 * (19.99 - 18)
+       Subtotal:            72.00
 
 
 Additional Notes
 ================
 
-* The volume price is applied based on the total quantity ordered for
-  a particular variant. It does not (yet) apply different prices for the portion
-  of the quantity that falls within a particular range. Although I plan to
-  support such option.
+* The volume discount is calculated by applying the discount price to all
+  ordered units of a particular variant. It does not (yet) apply different
+  prices for the portion of the quantity that falls within a particular range.
+  Although I plan to support such option.
 
 Authors
 =======

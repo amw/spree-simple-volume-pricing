@@ -9,18 +9,6 @@ Variant.class_eval do
 
   after_create :copy_master_volume_prices
 
-  # calculates the price based on quantity
-  def volume_price quantity, order = nil
-    quantity += order.variant_starting_quantity self if order
-
-    price = self.price
-    volume_prices.each do |vp|
-      break if vp.starting_quantity > quantity
-      price = vp.price
-    end
-    price
-  end
-
   def blank_volume_price attributes
     attributes['starting_quantity'].blank? && attributes['price'].blank?
   end

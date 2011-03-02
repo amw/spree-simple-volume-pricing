@@ -1,0 +1,8 @@
+<% if @order.volume_discount != 0.0 %>
+  <tbody id='volume-discount'>
+    <tr class="total" id="volume-discount-row">
+      <td colspan="3"><b><%= t('volume_discount') %>:</b></td>
+      <td class="total"><span><%= number_to_currency @order.volume_discount %></span></td>
+    </tr>
+  </tbody>
+<% end %>
