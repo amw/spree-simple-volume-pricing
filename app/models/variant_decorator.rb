@@ -16,6 +16,7 @@ Variant.class_eval do
   private
   def copy_master_volume_prices
     return if self.is_master?
+    self.progressive_volume_discount = self.product.master.progressive_volume_discount
     self.volume_prices = self.product.master.volume_prices.map do |vp|
       VolumePrice.new vp.attributes.slice('starting_quantity', 'price')
     end

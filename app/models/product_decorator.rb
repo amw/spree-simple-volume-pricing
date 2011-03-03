@@ -1,5 +1,7 @@
 Product.class_eval do
-  delegate_belongs_to :master, :volume_prices_attributes=
+  delegate_belongs_to :master,
+    :volume_prices_attributes=,
+    :progressive_volume_discount
 
   def save_master
     return unless master && (master.changed? || master.new_record? || master.changed_for_autosave?)

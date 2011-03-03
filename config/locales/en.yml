@@ -1,6 +1,17 @@
 en:
+  activerecord:
+    attributes:
+      product:
+        progressive_volume_discount: Progressive volume discount
+      variant:
+        progressive_volume_discount: Progressive volume discount
   volume_pricing: Volume Pricing
   volume_prices: Volume Prices
   volume_discount: Volume Discount
   starting_from: Starting from
   add_volume_price: Add Volume Price
+  first: First
+  next: Next
+  additional: Additional
+  at: at
+  progressive_discount_info: By default, a single volume price selected based on the item's quantity is applied to all it's units. Select this option to have a progressively reduced price applied to successive units depending on how many are already in the cart, i.e., the first three at $10 each, the next three at $9 each, and all additional units at $8 apiece.

@@ -1,5 +1,19 @@
 <%= fields_for @variant do |f| %>
   <h3><%= t("volume_prices") %></h3>
+  <style>
+    #progressive_discount_info {
+      display: inline-block;
+      margin-left: 20pt;
+      font-size: 0.8em;
+    }
+  </style>
+  <p>
+    <%= f.check_box :progressive_volume_discount %>
+    <%= f.label :progressive_volume_discount %>
+    <span id="progressive_discount_info">
+      <%= t 'progressive_discount_info' %>
+    </span>
+  </p>
   <table class="index">
     <thead>
       <tr>
