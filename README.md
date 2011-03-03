@@ -20,6 +20,10 @@ Additionally Variant objects get a new boolean property
 `progressive_volume_discount` to select between two available discount
 strategies.
 
+If you want to see the extension's UI there are
+[screenshots](https://github.com/amw/spree-simple-volume-pricing/wiki/Screenshots)
+available.
+
 
 Uniform vs Progressive volume discount
 ======================================
