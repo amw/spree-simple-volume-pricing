@@ -21,6 +21,7 @@ LineItem.class_eval do
     amount_without_volume_discount + self.volume_discount
   end
   alias_method_chain :amount, :volume_discount
+  alias total amount
 
   private
   def check_update_volume_discount
