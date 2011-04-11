@@ -3,7 +3,7 @@
 Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.name     = 'spree_simple_volume_pricing'
-  s.version  = '2.1.0'
+  s.version  = '2.1.1'
   s.summary  = 'Adds volume pricing capabilities to Spree'
 
   s.author   = 'Adam Wróbel'
