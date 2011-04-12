@@ -10,4 +10,4 @@ Admin::ProductsController.class_eval do
       render :edit
     end
   end
-end
+end unless Admin::ProductsController.instance_methods.include? :volume_prices

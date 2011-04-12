@@ -4,4 +4,5 @@ class VolumePricingHooks < Spree::ThemeSupport::HookListener
   replace :product_price, :partial => "products/volume_prices"
   insert_after :cart_items, :partial => "orders/cart_volume_discount"
   insert_before :order_details_subtotal, :partial => "shared/order_details_volume_discount"
+  insert_before :admin_order_form_subtotal, :partial => "admin/orders/form_volume_discount"
 end
