@@ -19,8 +19,10 @@ Order.class_eval do
   end
 
   def update_totals_with_volume_discount
-    # we need to refresh the items
-    line_items true
+    # we might need to refresh the items
+    if @line_items && !@line_items.any? {|i| !i.destroyed? && i.changed?}
+      line_items true
+    end
     update_totals_without_volume_discount
   end
   alias_method_chain :update_totals, :volume_discount
