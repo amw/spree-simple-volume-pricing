@@ -1,5 +1,6 @@
 require 'spree_core'
 require 'volume_pricing_hooks'
+require 'spree_simple_volume_pricing/ext/active_record'
 
 module VolumePricing
   class Engine < Rails::Engine
