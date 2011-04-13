@@ -4,7 +4,11 @@ Order.class_eval do
   end
 
   def products_line_items product
-    line_items.all.select {|i| product.all_variant_ids.include? i.variant_id}
+    line_items.to_a.select {|i| product.all_variant_ids.include? i.variant_id}
+  end
+
+  def line_items_dirty?
+    @line_items && @line_items.any? {|i| !i.destroyed? && i.changed?}
   end
 
   # By default volume price is calculated based only on quantity of the current
@@ -20,9 +24,7 @@ Order.class_eval do
 
   def update_totals_with_volume_discount
     # we might need to refresh the items
-    if @line_items && !@line_items.any? {|i| !i.destroyed? && i.changed?}
-      line_items true
-    end
+    line_items true unless line_items_dirty?
     update_totals_without_volume_discount
   end
   alias_method_chain :update_totals, :volume_discount
@@ -45,14 +47,14 @@ Order.class_eval do
 
     products_to_update.uniq.each {|p| update_product_volume_discount p}
 
-    update_totals
+    update!
   end
   # This is required for Volume Customers
   # It updates item_total when user logs in
   before_save :force_volume_discount_update, :if => :volume_user_changed?
 
   def update_product_volume_discount product
-    line_items true
+    line_items true unless line_items_dirty?
     items = products_line_items(product).sort_by &:variant_id
 
     return if items.blank?
