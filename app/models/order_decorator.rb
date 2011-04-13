@@ -27,11 +27,11 @@ Order.class_eval do
   end
   alias_method_chain :update_totals, :volume_discount
 
-  # This is required for Volume Customers
-  # It updates item_total when user logs in
-  def update_totals_on_user_association
-    return unless user_id_changed? || email_changed?
+  def volume_user_changed?
+    user_id_changed? || email_changed?
+  end
 
+  def force_volume_discount_update
     products_to_update = []
 
     line_items.each do |li|
@@ -39,7 +39,7 @@ Order.class_eval do
         products_to_update << li.variant.product
       else
         li.update_volume_discount self
-        li.save
+        li.save if li.persisted?
       end
     end
 
@@ -47,7 +47,9 @@ Order.class_eval do
 
     update_totals
   end
-  before_save :update_totals_on_user_association
+  # This is required for Volume Customers
+  # It updates item_total when user logs in
+  before_save :force_volume_discount_update, :if => :volume_user_changed?
 
   def update_product_volume_discount product
     line_items true
